@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arpan - SAP Resource Center | Home</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+
+<script>
+
+    window.onload = function () {
+
+    var SetLabel = "{{ data["graphLabel"] }}"
+    var SetVal = "{{ data["graphVal"] }}"
+
+    var SetLabelList = SetLabel.split(",")
+    var SetValList = SetVal.split(",")
+
+    console.log("DATA:", SetLabelList)
+    console.log("DATA:", SetValList)
+
+    var dataPoints = [];
+    for (var i = 0; i < SetLabelList.length; i++) {
+       var dataPoint =
+       {
+        y: parseFloat(SetValList[i]),
+        label: SetLabelList[i]
+       };
+
+      dataPoints.push(dataPoint);
+    }
+
+    console.log("Data-Point", dataPoint)
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        theme: "dark2", // "light1", "light2", "dark1", "dark2"
+        title:{
+            text: "SAP Profile Data",
+            fontFamily: "Calibri",
+            fontWeight: "lighter",
+            fontSize: 20
+        },
+      padding: 0,
+
+      dataPointWidth: 30,
+        axisY: {
+            title: "SAP Modules"
+        },
+        data: [{
+            type: "column",
+            showInLegend: true,
+            legendMarkerColor: "grey",
+            legendText: "No. of profiles/ Sap Module",
+            dataPoints: dataPoints
+        }]
+    });
+    chart.render();
+
+    }
+</script>
+  
+  <style>
+  .tickerwrapper {
+    /* the outer div */
+    
+    position: relative;
+    top: 0px;
+    left:0%;
+    border: 1px solid #444;
+    background: #E8BB13;
+    width: 99.9%;
+    height: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  ul.list {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    padding:0;
+    margin:0;
+  }
+  
+  ul.list.cloned {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+  
+  ul.list li {
+    float: left;
+    padding-left: 20px;
+    font-size: 11px;
+  }
+    
+  .horizontal-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    display: flex;
+  }
+  
+  .horizontal-menu li {
+    margin-right: 10px;
+  }
+  
+  .horizontal-menu li:last-child {
+    margin-right: 0;
+  }
+  
+  .horizontal-menu li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #f1f1f1;
+    text-align: left;
+  }
+  
+  .horizontal-menu li a:hover {
+    background-color: black;
+  }
+
+  .navbar-custom .navbar-nav .nav-link {
+    color: white;
+    align-content: left;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .item {
+    padding: 10px;
+    background-color: #f2f2f2;
+    margin-right: 10px;
+  }
+  </style>
+</head>
+  
+<body>
+  <header>
+  <div id="includeHeader"></div> 
+   <div class="tickerwrapper">
+     <ul class='list'>
+        <li class='listitem'>
+          <span>>> ITES/IT Services: +5 jobs</span>
+        </li>
+        <li class='listitem'>
+          <span> | Oil & Gas Sector: +2 jobs</span>
+        </li>
+        <li class='listitem'>
+          <span> | Telecom Sector: 4 closed</span>
+        </li>
+        <li class='listitem'>
+          <span> | Power & Energy Sector: +2 jobs</span>
+        </li>
+        <li class='listitem'>
+          <span> | Shipping & Cargo Sector: +2 jobs</span>
+        </li>
+        <li class='listitem'>
+          <span> | Automobiles & Transport Sector: 3 closed</span>
+        </li>
+    </ul>
+  </div>
+  </header>
+    
+  <h3>Welcome to SAP Resource Center</h3>
+    <section class="banner">
+    <img height='170' width='100%'src="/static/freeBanner.jpg" alt="Banner Image">
+    </section>
+  
+    <div class="container">
+      <div class="item">
+          <table class="table table-bordered">
+                    <tr>
+                        <td style="background-color:#22488C; color:#E8BB13; font-size:20px; text-align:left; vertical-align: center" colspan="8">SAP - Profiles Available</td>
+                    </tr>
+                    <tr>
+                        {% for keys in data["stat"].keys() %}
+                        <td style="background-color:#000000; color:#f1f1f1; text-align:center; vertical-align: center">{{ keys }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for iKeys in data["stat"].keys() %}
+                        <td style="text-align:center; vertical-align: center">{{ data["stat"][iKeys] }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr style="background-color:#000000">
+                        <td style="background-color:#000000; vertical-align: center; align-self: left" colspan="8">
+                          <div id="chartContainer" style="height: 300px; width: 100%;" align="left"></div>
+                        </td>
+                    </tr>
+            </table>
+      </div>
+      
+      <div class="item">
+            <table class="table table-bordered">
+                    <tr>
+                        <td style="background-color:#22488C; color:#E8BB13; font-size:20px; text-align:left; vertical-align: center" colspan="8">Active Profiles/ Notice Period </td>
+                    </tr>
+                    <tr>
+                        {% for val in data["noticeRange"] %}
+                        <td style="background-color:#000000; color:#f1f1f1; text-align:center; vertical-align: center">{{ val }}</td>
+                        {% endfor %}
+                    </tr>
+  
+                        {% for keys in data["data"] %}
+                    <tr>
+                        <td style="background-color:#BBBFCA; text-align:center; vertical-align: center; color:#22488C">{{ keys }}</td>
+                        {% for value in data["data"][keys] %}
+                          <td style="text-align:center; vertical-align: center">{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                        {% endfor %}
+                    <tr>
+                        <td style="background-color:#ffffff; text-align:lef; vertical-align: center; font-size:8px; color: green" colspan="8">
+                            <b>Real-Time Data @ Mongo-DB Atlas Platform </b>
+                        </td>
+                    </tr>
+            </table>
+      </div>
+  </div>
+<table class="table table-bordered" style="width: 857px">
+      <tr>
+          <td style="background-color:#22488C; color:#E8BB13; font-size:20px; text-align:left; vertical-align: center" colspan=17>SAP - Profiles Available / Location</td>
+      </tr>
+      <tr>
+          {% for itemVal in data["loc-list"] %}
+          <td style="background-color:#000000; color:#f1f1f1; text-align:center; vertical-align: center">{{ itemVal }}</td>
+          {% endfor %}
+      </tr>
+
+      <tr>
+    {% for keys in data["skill-loc-count"].keys() %}
+          <td style="text-align:center; vertical-align: center">{{ keys }}</td>
+        {% for valueCount in data["skill-loc-count"][keys] %}
+          <td style="text-align:center; vertical-align: center">{{ valueCount }}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+
+</table>
+  
+  <footer>
+  <div id="includeFooter"></div>
+  </footer>
+<script src="../static/homescript.js"></script>
+<script src="https://cdn.canvasjs.com/ga/canvasjs.min.js"></script>
+<script src="https://cdn.canvasjs.com/ga/canvasjs.stock.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

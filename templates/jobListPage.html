@@ -1,0 +1,209 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <style>
+      .popup-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        z-index: 9999;
+      }
+
+      .popup-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+      }
+
+      .popup-content a {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+    .tickerwrapper {
+      /* the outer div */
+      
+      position: relative;
+      top: 0px;
+      left:0%;
+      border: 1px solid #444;
+      background: #E8BB13;
+      width: 99.9%;
+      height: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      padding: 0;
+    }
+    
+    ul.list {
+      position: relative;
+      display: inline-block;
+      list-style: none;
+      padding:0;
+      margin:0;
+    }
+    
+    ul.list.cloned {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+    
+    ul.list li {
+      float: left;
+      padding-left: 20px;
+      font-size: 11px;
+    }
+      
+    .horizontal-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      display: flex;
+    }
+    
+    .horizontal-menu li {
+      margin-right: 10px;
+    }
+    
+    .horizontal-menu li:last-child {
+      margin-right: 0;
+    }
+    
+    .horizontal-menu li a {
+      display: block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #f1f1f1;
+      text-align: left;
+    }
+    
+    .horizontal-menu li a:hover {
+      background-color: black;
+    }
+  
+    .navbar-custom .navbar-nav .nav-link {
+      color: white;
+      align-content: left;
+    }
+  
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  
+    .container {
+      max-width: 100%;
+      width: 100%;
+      padding: 0px;
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+  
+    .content {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+  <div id="includeHeader"></div> 
+   <div class="tickerwrapper">
+     <ul class='list'>
+        <li class='listitem'>
+          <span>>> ITES/IT Services: +5 jobs</span>
+        </li>
+        <li class='listitem'>
+          <span> | Oil & Gas Sector: +2 jobs</span>
+        </li>
+        <li class='listitem'>
+          <span> | Telecom Sector: 4 closed</span>
+        </li>
+        <li class='listitem'>
+          <span> | Power & Energy Sector: +2 jobs</span>
+        </li>
+        <li class='listitem'>
+          <span> | Shipping & Cargo Sector: +2 jobs</span>
+        </li>
+        <li class='listitem'>
+          <span> | Automobiles & Transport Sector: 3 closed</span>
+        </li>
+    </ul>
+  </div>
+  </header>
+
+<table class="table table-bordered" style="width: 100%">
+      <tr>
+          <td style="background-color:#22488C; color:#E8BB13; font-size:20px; text-align:left; vertical-align: center" colspan=9>SAP - Latest Job Openings
+            <button onclick="openPopup()">[Map View]</button>
+          </td>
+      </tr>
+      <tr>
+          {% for keys in data["header-text"] %}
+          <td style="background-color:#000000; color:#f1f1f1; text-align:center; vertical-align: center">{{ keys }}</td>
+          {% endfor %}
+          <td style="background-color:#000000; color:#f1f1f1; text-align:center; vertical-align: center">More Info</td>
+      </tr>
+
+      <tr>
+        {% for keys in data["job-data"] %}
+          {% for valSet in data["job-data"][keys] %}
+            <td style="text-align:center; vertical-align: center">{{ valSet }}</td>
+            {% endfor %}
+            <td style="text-align:center; vertical-align: center">More Info</td>
+      </tr>
+        {% endfor %}
+
+</table>
+  <script>
+            var popupWindow;
+
+            function openPopup() {
+
+              // Calculate the center position of the screen
+              var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+              var screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+              var popupWidth = 500;
+              var popupHeight = 400;
+              var left = (screenWidth - popupWidth) / 2;
+              var top = (screenHeight - popupHeight) / 2;
+
+              // Open the popup window
+              popupWindow = window.open('http://127.0.0.1:5000/mapinfo', '_blank', 'width=800,height=800,left=' + left + ',top=' + top + ',modal=yes');
+              popupWindow.focus();
+            }
+  </script>
+
+<table style="height: 20px; padding:0; width:100%; vertical-align: bottom">
+  <tr style="background: white; color: white; font-size: 1px"><td>check</td>
+  <tr style="background: red"><td></td>
+  <tr style="background: yellow"><td></td>
+  <tr style="background: white; color: white; font-size: 1px"><td>check</td>
+  <tr style="background: black">
+    <td style="width: 100%; color: white; text-align: center; font-family: Candara Light; font-size:12px;">
+      Powered by <i><b>Arpan Infa-Solution Pvt Ltd</b></i>
+    </td>
+  </tr>
+</table>
+<footer>
+  <div id="includeFooter"></div>
+</footer>
+<script src="../static/homescript.js"></script>
+<script src="https://cdn.canvasjs.com/ga/canvasjs.min.js"></script>
+<script src="https://cdn.canvasjs.com/ga/canvasjs.stock.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+</body>
+</html>

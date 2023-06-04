@@ -1,0 +1,79 @@
+*, *::before, *::after{
+  -webkit-box-sizing:padding-box;
+  box-sizing:padding-box;
+}
+
+body{
+  background:#CCC;
+}
+
+body,
+div,
+ul,
+li,
+p {
+  margin: 0;
+  padding: 0;
+  font-family: verdana;
+  font-size: 16pt;
+}
+
+.tickerwrapper {
+  /* the outer div */
+  
+  position: relative;
+  top: 30px;
+  left:0%;
+  border: 1px solid #444;
+  background: #fff;
+  width: 99.9%;
+  height: 30px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+ul.list {
+  position: relative;
+  display: inline-block;
+  list-style: none;
+  padding:0;
+  margin:0;
+}
+
+ul.list.cloned {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+ul.list li {
+  float: left;
+  padding-left: 20px;
+}
+
+.horizontal-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: #f1f1f1;
+  display: flex;
+}
+
+.horizontal-menu li {
+  margin-right: 10px;
+}
+
+.horizontal-menu li:last-child {
+  margin-right: 0;
+}
+
+.horizontal-menu li a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+.horizontal-menu li a:hover {
+  background-color: #ddd;
+}
